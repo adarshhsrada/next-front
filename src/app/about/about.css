@@ -1,0 +1,9 @@
+.dis_list{
+  display: flex;
+  justify-content  : space-around;
+
+} 
+
+.dis_items{
+  color : red
+}
