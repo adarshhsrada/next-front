@@ -2,11 +2,18 @@ import './about.css'
 import axios from 'axios'
 import { useState } from 'react'
 import Link from 'next/link'
+// import PDF from '../components/pdf';
+
+async function getData() {
+    const { data } = await axios.post(`https://dev.jiweman.com/api/pawapay/correspondent/list`,{country : "" , limit : 10 , page : 0 , status : ""})
+
+    return data
+}
+
 export default async function about() {
 
-     const { data } = await axios.post(`https://dev.jiweman.com/api/pawapay/correspondent/list`,{country : "" , limit : 10 , page : 0 , status : ""})
-
-
+    const data = await getData()
+    
     console.log("env check===>>>",data)
     
     return (
@@ -18,6 +25,7 @@ export default async function about() {
             <p className='dis_items'>{res?.name}</p>
             )}
     </div>
+    {/* <PDF></PDF> */}
     </>)
 }
 
