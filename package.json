@@ -1,6 +1,7 @@
 {
   "name": "my-next",
   "version": "0.1.0",
+  "engine" : "18.17.1",
   "private": true,
   "scripts": {
     "dev": "next dev",
