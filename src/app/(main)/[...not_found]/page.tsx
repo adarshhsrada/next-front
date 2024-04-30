@@ -1,5 +1,5 @@
 
-import notFound from "../../../public/not_found.gif";
+import notFound from "../../../../public/not_found.gif";
 import Image from 'next/image';
 import './page.css'
 export default async function about() {

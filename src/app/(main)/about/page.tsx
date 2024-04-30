@@ -1,33 +1,35 @@
+"use client"
 import './about.css'
 import axios from 'axios'
 import { useState } from 'react'
 import Link from 'next/link'
+import WithAuth from '../../guard';
 // import PDF from '../components/pdf';
 
-async function getData() {
-    const { data } = await axios.post(`https://dev.jiweman.com/api/pawapay/correspondent/list`,{country : "" , limit : 10 , page : 0 , status : ""})
 
-    return data
-}
+// async function getData() {
+//     const { data } = await axios.post(`https://dev.jiweman.com/api/pawapay/correspondent/list`,{country : "" , limit : 10 , page : 0 , status : ""})
 
-export default async function about() {
+//     return data
+// }
 
-    const data = await getData()
+ function About() {
+
+    const data :any = [] //await getData()
     
-    console.log("env check===>>>",data)
+    console.log("this the data===>>>",data)
     
     return (
     <>
     <h1>This is about component</h1>
     <div className ="dis_list">
-    { data.data.map((res:any)=> 
-    
-            <p className='dis_items'>{res?.name}</p>
-            )}
+    { data.map((res:any)=> <p className='dis_items'>{res?.name}</p> )}
     </div>
     {/* <PDF></PDF> */}
     </>)
 }
+
+export default About
 
 // export async function generateStaticParams() {
     // // Fetch data from external API

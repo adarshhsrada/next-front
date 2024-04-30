@@ -1,27 +1,28 @@
 "use client";
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { redirect } from "next/navigation";
 
-export default function isAuth(Child) {
-  return function IsAuth(props) {
-    const auth = false;
+export default function WithAuth({ children }) {
 
-    console.log("inside auth component==>>");
+  console.log("Child===", children)
+  // return function (props) {
+  const auth = false;
 
-    useEffect(() => {
-      const handleUpdate = () => {
-        if (!auth) {
-          redirect("/login");
-        }
-      };
+  console.log("inside auth component==>>");
 
-      handleUpdate(); // Call it once after the initial render
-    }, [auth]); // Include auth in the dependency array
+  const checkAuth = useCallback(() => {
+    const handleUpdate = () => {
+      if (!auth) {
+        redirect("/auth/login");
+      }
+    };
 
-    // if (!auth) {
-    //   return null;
-    // }
+    handleUpdate(); // Call it once after the initial render
+  }, [auth]); // Include auth in the dependency array
 
-    return <Child {...props} />;
-  };
+  useEffect(() => {
+    checkAuth()
+  }, [])
+
+  return children
 }
