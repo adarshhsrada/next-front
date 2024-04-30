@@ -3,15 +3,18 @@ const getLocalUserData = () => {
     const isUserData = localStorage.getItem("userData")
 
 
-    return { token: isUserToken, userData: isUserData, isUser: (isUserToken & isUserData) ? true : false }
+    return { token: isUserToken, userData: isUserData, isUser: (isUserToken && isUserData) ? true : false }
 }
 
 const setLocalUserData = (token, data) => {
     localStorage.setItem("user", token)
-    localStorage.setItem("userData", data)
+    localStorage.setItem("userData", JSON.stringify(data))
+}
+
+const removeLocalUser = () => {
+    localStorage.clear()
 }
 
 
 
-
-export default { getLocalUserData, setLocalUserData } 
+export { getLocalUserData, setLocalUserData ,removeLocalUser} 

@@ -3,12 +3,8 @@ import authSaga from "../../components/login/store/saga"
 
 
 // Root saga to combine all sagas
-function* rootSaga() {
+export default function* rootSaga() {
   yield all([
-    fork(authSaga)
-    // takeEvery('FETCH_DATA', fetchDataSaga), // Replace with your action type
-    // Other sagas
-  ]);
+    authSaga()
+  ])
 }
-
-export default rootSaga;

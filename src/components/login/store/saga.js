@@ -1,25 +1,22 @@
-import { USER_LOGIN } from "./action";
+import { USER_LOGIN, loginUserFail, loginUserSuccess } from "./action";
 import { put, takeEvery, call } from "redux-saga/effects";
 import { login } from '../../../../services/apiService';
-import setLocalUserData from '../../../../utils/authService';
+import {setLocalUserData} from '../../../../utils/authService';
 
-function* loginUser(data) {
+function* loginUser({ payload }) {
     try {
-
-        console.log("%%bol")
-        const apiRes = call(login(data))
-
+        const apiRes = yield call(login, payload)
+        console.log("apiRes====", apiRes)
         setLocalUserData(apiRes.token, apiRes.data)
-
-        console.log("login success ", data)
-    } catch {
-        console.log("error in login", error)
+        yield put(loginUserSuccess(apiRes))
+    } catch (error) {
+        yield put(loginUserFail(error))
     }
 }
 
 
 function* authSaga() {
-    takeEvery(USER_LOGIN, loginUser)
+    yield takeEvery(USER_LOGIN, loginUser)
 }
 
 export default authSaga

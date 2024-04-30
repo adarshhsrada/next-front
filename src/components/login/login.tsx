@@ -1,20 +1,49 @@
 'use client'
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from 'next/navigation';
 import './login.css';
 import { login } from '../../../services/apiService';
 import SimpleSnackbar from '../../components/SnackBar';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import * as Actions from "./store/action";
-
 interface login {
     userName: string;
     password: string;
 }
 
+interface interAuthUser {
+    userReducer: any;
+    loading: boolean,
+    token: string,
+    userData: object,
+    error: string
+}
+
 const Login = () => {
     const router = useRouter();
     const dispatch = useDispatch();
+
+    const authUser = useSelector((user: interAuthUser) => user.userReducer);
+    const [loginState, setLoginState] = useState({})
+
+    
+    useEffect(()=>{
+        if(authUser.message){
+            // setLoginState({...authUser})
+            // console.log("loginState===", loginState)
+            // if(loginState.error) {
+                setAlert({ open : true , message : authUser.message })
+            // }
+        }
+
+        if( authUser.success ){
+             setTimeout(() => {
+                router.push("/")
+            }, 2000);
+        }
+        
+    },[ authUser])
+
 
     const [form, setForm] = useState<login>({
         userName: "",

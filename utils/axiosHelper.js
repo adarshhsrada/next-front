@@ -24,9 +24,9 @@ axios.interceptors.response.use(
     },
     (error) => {
       // Log the error
-      console.log("Failed to fetch API:", error);
+      // console.log("Failed to fetch API:", error);
       // Forward the error to the Promise chain
-      return Promise.reject(error);
+      return Promise.reject(error.response.data);
     }
   );
   

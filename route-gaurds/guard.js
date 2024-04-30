@@ -1,19 +1,27 @@
 "use client";
 import { useCallback, useEffect } from "react";
-import { redirect } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { getLocalUserData } from "../utils/authService";
 
 export default function WithAuth({ children }) {
 
   console.log("Child===", children)
   // return function (props) {
-  const auth = false;
+  const auth = getLocalUserData().isUser;
+  const router = useRouter();
+  const currentPath = usePathname();
 
-  console.log("inside auth component==>>");
-
+  
   const checkAuth = useCallback(() => {
+    
+    console.log("inside auth component==>>",auth , currentPath);
+
     const handleUpdate = () => {
       if (!auth) {
-        redirect("/auth/login");
+        router.push("/auth/login")
+      } else if (auth && currentPath == "/auth/login") {
+        console.log("should go here")
+        router.push("/")
       }
     };
 

@@ -3,7 +3,7 @@ import './about.css'
 import axios from 'axios'
 import { useState } from 'react'
 import Link from 'next/link'
-import WithAuth from '../../guard';
+import WithAuth from '../../../../route-gaurds/guard';
 // import PDF from '../components/pdf';
 
 
